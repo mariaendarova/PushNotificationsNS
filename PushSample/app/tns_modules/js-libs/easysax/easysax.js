@@ -1,78 +1,78 @@
-    /*
-    new function() {
-        var parser = new EasySAXParser();
+﻿	/*
+	new function() {
+		var parser = new EasySAXParser();
 
-        parser.ns('rss', { // or false
-            rss: 'http://purl.org/rss/1.0/',
-            atom: 'http://www.w3.org/2005/Atom',
-            xhtml: 'http://www.w3.org/1999/xhtml',
-            media: 'http://search.yahoo.com/mrss/'
-        });
-
-
-        parser.on('error', function(msg) {
-            //console.log(msg)
-        });
-
-        parser.on('startNode', function(elem, attr, uq, tagend, getStrNode) {
-            attr();
-            return;
-            if (tagend) {
-                console.log('   '+str)
-            } else {
-                console.log('+  '+str)
-            };
-        });
-
-        parser.on('endNode', function(elem, uq, tagstart, str) {
-            return;
-            if (!tagstart) console.log('-  ' + str)
-        });
-
-        parser.on('textNode', function(s, uq) {
-            uq(s);
-            return
-            console.log('   '+s)
-        });
-
-        parser.on('cdata', function(data) {
-        });
+		parser.ns('rss', { // or false
+			rss: 'http://purl.org/rss/1.0/',
+			atom: 'http://www.w3.org/2005/Atom',
+			xhtml: 'http://www.w3.org/1999/xhtml',
+			media: 'http://search.yahoo.com/mrss/'
+		});
 
 
-        parser.on('comment', function(text) {
-            //console.log('--'+text+'--')
-        });
+		parser.on('error', function(msg) {
+			//console.log(msg)
+		});
 
-        //parser.on('question', function() {}); // <? ... ?>
-        //parser.on('attention', function() {}); // <!XXXXX zzzz="eeee">
+		parser.on('startNode', function(elem, attr, uq, tagend, getStrNode) {
+			attr();
+			return;
+			if (tagend) {
+				console.log('   '+str)
+			} else {
+				console.log('+  '+str)
+			};
+		});
 
-        console.time('easysax');
-        for(var z=1000;z--;) {
-            parser.parse(xml)
-        };
-        console.timeEnd('easysax');
-    };
+		parser.on('endNode', function(elem, uq, tagstart, str) {
+			return;
+			if (!tagstart) console.log('-  ' + str)
+		});
+
+		parser.on('textNode', function(s, uq) {
+			uq(s);
+			return
+			console.log('   '+s)
+		});
+
+		parser.on('cdata', function(data) {
+		});
 
 
-    */
+		parser.on('comment', function(text) {
+			//console.log('--'+text+'--')
+		});
+
+		//parser.on('question', function() {}); // <? ... ?>
+		//parser.on('attention', function() {}); // <!XXXXX zzzz="eeee">
+
+		console.time('easysax');
+		for(var z=1000;z--;) {
+			parser.parse(xml)
+		};
+		console.timeEnd('easysax');
+	};
+
+
+	*/
 
 // << ------------------------------------------------------------------------ >> //
 
 
 if (typeof exports === 'object' /*&& this == exports*/) {
-    module.exports.EasySAXParser = EasySAXParser;
+	module.exports.EasySAXParser = EasySAXParser;
 };
 
 function EasySAXParser() {
-    'use strict';
+	'use strict';
 
-    if (!this) return null;
+	if (!this) return null;
 
     this.angularSyntax = false;
 
-    function nullFunc() {};
+	function nullFunc() {};
 
-    this.onTextNode = nullFunc;
+	this.onTextNode = nullFunc;
     this.onStartNode = nullFunc;
     this.onEndNode = nullFunc;
     this.onCDATA = nullFunc;
@@ -80,20 +80,20 @@ function EasySAXParser() {
     this.onComment = null;
     this.onQuestion = null;
     this.onAttention = null;
-    this.is_onComment = this.is_onQuestion = this.is_onAttention = false;
+	this.is_onComment = this.is_onQuestion = this.is_onAttention = false;
 
-    this.isNamespace = false;
+	this.isNamespace = false;
     this.useNS = null;
     this.default_xmlns = null;
     this.xmlns = null;
-    this.nsmatrix = {xmlns: this.xmlns};
-    this.hasSurmiseNS = false;
-    ;
+	this.nsmatrix = {xmlns: this.xmlns};
+	this.hasSurmiseNS = false;
+	;
 
 
-    this.attr_string = ''; // строка атрибутов
-    this.attr_posstart = 0; //
-    this.attr_res; // закешированный результат разбора атрибутов , null - разбор не проводился, object - хеш атрибутов, true - нет атрибутов, false - невалидный xml
+	this.attr_string = ''; // строка атрибутов
+	this.attr_posstart = 0; //
+	this.attr_res; // закешированный результат разбора атрибутов , null - разбор не проводился, object - хеш атрибутов, true - нет атрибутов, false - невалидный xml
 }
 
 EasySAXParser.prototype.on = function(name, cb) {
@@ -225,13 +225,13 @@ EasySAXParser.prototype.allowedAngularAttributeChars = function(w) {
     }
 };
 
-    /*
-        парсит атрибуты по требованию. Важно! - функция не генерирует исключения.
+	/*
+		парсит атрибуты по требованию. Важно! - функция не генерирует исключения.
 
-        если была ошибка разбора возврашается false
-        если атрибутов нет и разбор удачен то возврашается true
-        если есть атрибуты то возврашается обьект(хеш)
-    */
+		если была ошибка разбора возврашается false
+		если атрибутов нет и разбор удачен то возврашается true
+		если есть атрибуты то возврашается обьект(хеш)
+	*/
 
 EasySAXParser.prototype.getAttrs = function() {
     if (this.attr_res !== null) {

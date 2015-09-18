@@ -1,4 +1,8 @@
 {
-    "dependencies": {},
-    "devDependencies": {}
+	"nativescript": {
+		"id": "com.telerik.PushNotificationApp",
+		"tns-android": {
+			"version": "1.2.0"
+		}
+	}
 }

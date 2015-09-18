@@ -32,12 +32,7 @@ var StyleScope = (function () {
         this._cssFileName = cssFileName;
         this._reset();
         if (!this._cssSelectors) {
-            if (application.cssSelectorsCache) {
-                this._cssSelectors = StyleScope._joinCssSelectorsArrays([application.cssSelectorsCache]);
-            }
-            else {
-                this._cssSelectors = new Array();
-            }
+            this._cssSelectors = new Array();
         }
         var selectorsFromFile = StyleScope.createSelectorsFromCss(cssString, cssFileName);
         this._cssSelectors = StyleScope._joinCssSelectorsArrays([this._cssSelectors, selectorsFromFile]);
